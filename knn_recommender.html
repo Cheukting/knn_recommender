@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+  - pandas
+  - scipy
+  - scikit-learn
+  - fuzzywuzzy
+  - diskcache
+  - paths:
+    - ./knn_recommender.py
+    - ./movies.csv
+    - ./ratings.csv
+    - ./hashmap.p
+    - ./movie_user_mat_sparse.p
+</py-env>
+  </head>
+  <body>
+    <main class="max-w-xs mx-auto mt-4">
+    <section>
+    <div class="text-center w-full mb-8">
+      Your favourite movie: <input id="fav-movie" class="border flex-1 mr-3 border-gray-300 p-2 rounded" type="text">
+    <br/>
+      Number of recommendation:<input id="top-n" class="border flex-1 mr-3 border-gray-300 p-2 rounded" type="text">
+    <br/>
+      <button id="run-btn" class="p-2 text-white bg-blue-600 border border-blue-600 rounded" type="submit" pys-onClick="recommend">
+        Recommend!
+      </button>
+    </div>
+    <div class="text-center w-full mb-8" id="output"></div>
+    <py-script>
+      import warnings
+      warnings.filterwarnings("ignore")
+      from knn_recommender import KnnRecommender
+      def recommend(evt=None):
+        recommender = KnnRecommender('./movies.csv', './ratings.csv')
+        recommender.set_filter_params(50, 50)
+        recommender.set_model_params(20, 'brute', 'cosine', -1)
+        movie_name = Element('fav-movie').value
+        top_n = Element('top-n').value
+        if movie_name:
+          top_n = int(top_n) if top_n else 10
+          pyscript.write('output', recommender.make_recommendations(movie_name, top_n))
+      run_btn = Element('run-btn')
+      run_btn.element.onclick = recommend
+    </py-script> </body>
+  </section>
+  </main>
+</html>

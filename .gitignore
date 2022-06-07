@@ -1,0 +1,5 @@
+.DS_Store
+.python-version
+.hashmap.p
+.movie_user_mat_sparse.p
+poetry.lock
