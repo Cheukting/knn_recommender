@@ -1,5 +1,8 @@
 .DS_Store
 .python-version
-.hashmap.p
-.movie_user_mat_sparse.p
+python-version
+hashmap.p
+movie_user_mat_sparse.p
+movies.csv
+ratings.csv
 poetry.lock
