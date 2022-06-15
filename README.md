@@ -36,6 +36,10 @@ Start a local webserver:
 
 Open [http://0.0.0.0:8000](http://0.0.0.0:8000) and select `knn_recommender.html` from there
 
+## Presentation slides
+
+[Visit the slides on slides.com](https://slides.com/cheukting_ho/picking-what-to-watch-next-build-a-recommendation-system)
+
 ---
 
 *Credit to Kevin Laio ([KevinLiao159](https://github.com/KevinLiao159)) for [original code](https://github.com/KevinLiao159/MyDataSciencePortfolio/blob/master/movie_recommender/src/knn_recommender.py) and [blog post](https://towardsdatascience.com/prototyping-a-recommender-system-step-by-step-part-1-knn-item-based-collaborative-filtering-637969614ea)*
