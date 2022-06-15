@@ -90,30 +90,30 @@ class KnnRecommender:
             usecols=['userId', 'movieId', 'rating'],
             dtype={'userId': 'int32', 'movieId': 'int32', 'rating': 'float32'})
         # filter data
-        df_movies_cnt = pd.DataFrame(
-            df_ratings.groupby('movieId').size(),
-            columns=['count'])
-        popular_movies = list(set(df_movies_cnt.query('count >= @self.movie_rating_thres').index))  # noqa
-        movies_filter = df_ratings.movieId.isin(popular_movies).values
+        #### TODO: create filter for movies ####
+        movies_filter = None
+        ####
 
-        df_users_cnt = pd.DataFrame(
-            df_ratings.groupby('userId').size(),
-            columns=['count'])
-        active_users = list(set(df_users_cnt.query('count >= @self.user_rating_thres').index))  # noqa
-        users_filter = df_ratings.userId.isin(active_users).values
+        #### TODO: create filter for users ####
+        users_filter = None
+        ####
 
-        df_ratings_filtered = df_ratings[movies_filter & users_filter]
+        #### TODO: apply both filters####
+        df_ratings_filtered = None
+        ####
 
-        # pivot and create movie-user matrix
-        movie_user_mat = df_ratings_filtered.pivot(
-            index='movieId', columns='userId', values='rating').fillna(0)
-        # create mapper from movie title to index
-        hashmap = {
-            movie: i for i, movie in
-            enumerate(list(df_movies.set_index('movieId').loc[movie_user_mat.index].title)) # noqa
-        }
-        # transform matrix to scipy sparse matrix
-        movie_user_mat_sparse = csr_matrix(movie_user_mat.values)
+        #### TODO: pivot and create movie-user matrix ####
+        # TIP: remember to fill NAs
+        movie_user_mat = None
+        ####
+
+        #### TODO: create mapper from movie title to index ####
+        hashmap = {}
+        ####
+
+        #### TODO: transform matrix to scipy sparse matrix ###
+        movie_user_mat_sparse = None
+        ####
 
         # clean up
         del df_movies, df_movies_cnt, df_users_cnt
@@ -181,20 +181,15 @@ class KnnRecommender:
         print('Recommendation system start to make inference')
         print('......\n')
         t0 = time.time()
-        distances, indices = model.kneighbors(
-            data[idx],
-            n_neighbors=n_recommendations+1)
-        # get list of raw idx of recommendations
-        raw_recommends = \
-            sorted(
-                list(
-                    zip(
-                        indices.squeeze().tolist(),
-                        distances.squeeze().tolist()
-                    )
-                ),
-                key=lambda x: x[1]
-            )[:0:-1]
+
+        #### TODO: get top n neighbours ####
+        distances, indices = None, None
+        ####
+
+        #### TODO: get list of raw idx of recommendations ####
+        raw_recommends = []
+        ####
+
         print('It took my system {:.2f}s to make inference \n\
               '.format(time.time() - t0))
         # return recommendation (movieId, distance)
@@ -259,8 +254,9 @@ if __name__ == '__main__':
     recommender = KnnRecommender(
         os.path.join(data_path, movies_filename),
         os.path.join(data_path, ratings_filename))
-    # set params
+    #### TODO: try different params ####
     recommender.set_filter_params(50, 50)
     recommender.set_model_params(20, 'brute', 'cosine', -1)
+    ####
     # make recommendations
     print(recommender.make_recommendations(movie_name, top_n))

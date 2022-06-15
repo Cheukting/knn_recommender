@@ -8,6 +8,10 @@ Use [poetry](https://python-poetry.org/) to set up the Python environment (Pytho
 
 Get the full data set from [MovieLens Datasets](https://grouplens.org/datasets/movielens/latest/) and put the `movies.csv` and `ratings.csv` in this repo.
 
+## Complete the exercises
+
+Find all the `TODO` comments in `knn_recommender.py` and finish the missing pieces in the code. The finished version is in the [finished branch](https://github.com/Cheukting/knn_recommender/tree/finished)
+
 ## Run in CLI
 
 Run the `knn_recommender.py` with the following optional options:
@@ -28,7 +32,7 @@ Example:
 
 Start a local webserver:
 
-`python3 -m http.server`
+`python -m http.server`
 
 Open [http://0.0.0.0:8000](http://0.0.0.0:8000) and select `knn_recommender.html` from there
 
